@@ -1,0 +1,56 @@
+{
+  "name": "Amazon-aws-iam",
+  "type": "executer",
+  "imgUrl": "awsiam.png",
+  "execProgram": "node",
+  "main": "app.js",
+  "version": "1.0.0",
+  "description":"AWS IAM wrapper plugin",
+  "settings":[
+    {
+      "name":"AWS_ACCESS_KEY_ID",
+      "viewName": "Access key",
+      "type": "vault"
+    },
+    {
+      "name": "AWS_SECRET_ACCESS_KEY",
+      "viewName": "Secret key",
+      "type": "vault"
+    }
+  ],
+  "methods": [
+    {
+      "name": "deleteAccessKey",
+      "viewName": "Delete Access Key",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Access key",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret key",
+          "type": "vault"
+        },
+        {
+          "name": "REGION",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
+        },
+        {
+          "name": "ACCESS_KEY_ID",
+          "viewName": "Access key Id*",
+          "type": "string"
+        },
+        {
+          "name": "USER_NAME",
+          "viewName": "User name*",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
