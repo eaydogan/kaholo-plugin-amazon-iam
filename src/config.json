@@ -4,17 +4,17 @@
   "imgUrl": "awsiam.png",
   "execProgram": "node",
   "main": "app.js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description":"AWS IAM wrapper plugin",
   "settings":[
     {
       "name":"AWS_ACCESS_KEY_ID",
-      "viewName": "Access key",
+      "viewName": "Access key ID",
       "type": "vault"
     },
     {
       "name": "AWS_SECRET_ACCESS_KEY",
-      "viewName": "Secret key",
+      "viewName": "Secret Access key",
       "type": "vault"
     }
   ],
@@ -25,12 +25,12 @@
       "params": [
         {
           "name": "AWS_ACCESS_KEY_ID",
-          "viewName": "Access key",
+          "viewName": "Auth Access Key ID",
           "type": "vault"
         },
         {
           "name": "AWS_SECRET_ACCESS_KEY",
-          "viewName": "Secret key",
+          "viewName": "Secret Access key",
           "type": "vault"
         },
         {
@@ -42,12 +42,136 @@
         },
         {
           "name": "ACCESS_KEY_ID",
-          "viewName": "Access key Id*",
+          "viewName": "Access key Id",
           "type": "string"
         },
         {
           "name": "USER_NAME",
-          "viewName": "User name*",
+          "viewName": "User Name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "updateAccessKey",
+      "viewName": "Update Access Key",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Auth Access key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "REGION",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
+          "type": "string"
+        },
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key Id",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "viewName": "Status",
+          "type": "options",
+          "options": [
+            {
+              "id":"Active",
+              "name":"Active"
+            },
+            {
+              "id":"Inactive",
+              "name":"Inactive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "updateSSHPublicKey",
+      "viewName": "Update SSH Public Key",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Access Key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "REGION",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
+          "type": "string"
+        },
+        {
+          "name": "sshId",
+          "viewName": "SSH Public Key ID",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "viewName": "Status",
+          "type": "options",
+          "options": [
+            {
+              "id":"Active",
+              "name":"Active"
+            },
+            {
+              "id":"Inactive",
+              "name":"Inactive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deleteUser",
+      "viewName": "Delete User",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Access Key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "REGION",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
           "type": "string"
         }
       ]

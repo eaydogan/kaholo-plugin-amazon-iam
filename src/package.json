@@ -1,12 +1,12 @@
 {
-  "name": "pm-plugin-aws-s3",
-  "version": "1.2.1",
-  "description": "AWS S3 plugin for Productionmap",
+  "name": "kaholo-plugin-aws-iam",
+  "version": "1.1.0",
+  "description": "AWS IAM Plugin",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Productionmap team (Roy Talyosef)",
+  "author": "Kaholo Team",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.162.0"
