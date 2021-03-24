@@ -1,0 +1,173 @@
+{
+  "name": "Amazon-aws-iam",
+  "type": "executer",
+  "imgUrl": "logo.png",
+  "execProgram": "node",
+  "main": "app.js",
+  "version": "1.1.0",
+  "description":"AWS IAM wrapper plugin",
+  "settings":[
+    {
+      "name":"AWS_ACCESS_KEY_ID",
+      "viewName": "Access key ID",
+      "type": "vault"
+    },
+    {
+      "name": "AWS_SECRET_ACCESS_KEY",
+      "viewName": "Secret Access key",
+      "type": "vault"
+    }
+  ],
+  "methods": [
+    {
+      "name": "deleteAccessKey",
+      "viewName": "Delete Access Key",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Auth Access Key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access key",
+          "type": "vault"
+        },
+        {
+          "name": "ACCESS_KEY_ID",
+          "viewName": "Access key Id",
+          "type": "string"
+        },
+        {
+          "name": "USER_NAME",
+          "viewName": "User Name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "deleteUser",
+      "viewName": "Delete User",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Access Key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "updateAccessKey",
+      "viewName": "Update Access Key",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Auth Access key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
+          "type": "string"
+        },
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key Id",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "viewName": "Status",
+          "type": "options",
+          "options": [
+            {
+              "id":"Active",
+              "name":"Active"
+            },
+            {
+              "id":"Inactive",
+              "name":"Inactive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "updateSSHPublicKey",
+      "viewName": "Update SSH Public Key",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Access Key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
+          "type": "string"
+        },
+        {
+          "name": "sshId",
+          "viewName": "SSH Public Key ID",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "viewName": "Status",
+          "type": "options",
+          "options": [
+            {
+              "id":"Active",
+              "name":"Active"
+            },
+            {
+              "id":"Inactive",
+              "name":"Inactive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "listAccessKeys",
+      "viewName": "List Access Keys",
+      "params": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "viewName": "Access Key ID",
+          "type": "vault"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "viewName": "Secret Access Key",
+          "type": "vault"
+        },
+        {
+          "name": "userName",
+          "viewName": "User Name",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
