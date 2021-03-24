@@ -1,83 +1,100 @@
 const aws = require("aws-sdk");
-const { listRegions } = require('./autocomplete');
 
 
 async function deleteAccessKey(action,settings) {
     const accessKeyId = (action.params.ACCESS_KEY_ID || "").trim();
     const userName = (action.params.USER_NAME || "").trim();
 
-    if (!userName || !accessKeyId){
+    if (!accessKeyId || !userName){
         throw "Not given one of required fields";
     }
 
     const params = {
-        AccessKeyId: accessKeyId, 
-        UserName: userName
+        UserName: userName,
+        AccessKeyId: accessKeyId
     };
+
     const client = getClient(action, settings);
-    return runAwsMethod(client.deleteAccessKey, params);
+    return new Promise((resolve, reject) => {
+        client.deleteAccessKey(params, getAwsCallback(resolve, reject));
+    });
 }
 
-const updateAccessKey = getAwsUpdateMethod("accessKeyId");
-const updateSSHPublicKey = getAwsUpdateMethod("sshId");
-
 async function deleteUser(action,settings) {
-    const userName = (action.params.USER_NAME || "").trim();
-    if (!userName){
-        throw "Not given user name";
-    }
-    const params = {
-        UserName: userName
-    };
+    const params = getUsernameParam(action.params);
     const client = getClient(action, settings);
-    return runAwsMethod(client.deleteUser, params);
+    return new Promise((resolve, reject) => {
+        client.deleteUser(params, getAwsCallback(resolve, reject));
+    });
+}
+
+async function updateAccessKey(action, settings){
+    const params = getAwsUpdateParams(action.params, "accessKeyId", "AccessKeyId");
+    const client = getClient(action, settings);
+    return new Promise((resolve, reject) => {
+        client.updateAccessKey(params, getAwsCallback(resolve, reject));
+    });
+}
+
+async function updateSSHPublicKey(action, settings){
+    const params = getAwsUpdateParams(action.params, "sshId", "SSHPublicKeyId");
+    const client = getClient(action, settings);
+    return new Promise((resolve, reject) => {
+        client.updateSSHPublicKey(params, getAwsCallback(resolve, reject));
+    });
+}
+
+async function listAccessKeys(action,settings) {
+    const params = getUsernameParam(action.params);
+    const client = getClient(action, settings);
+    return new Promise((resolve, reject) => {
+        client.listAccessKeys(params, getAwsCallback(resolve, reject));
+    });
 }
 
 // Helpers
 
 function getClient(action, settings){
     const options = {
-        region: action.params.REGION.id,
         "accessKeyId": action.params.AWS_ACCESS_KEY_ID || settings.AWS_ACCESS_KEY_ID,
         "secretAccessKey": action.params.AWS_SECRET_ACCESS_KEY || settings.AWS_SECRET_ACCESS_KEY 
     }
     return new aws.IAM(options);
 }
 
-function runAwsMethod(method, params){
-    return new Promise((resolve, reject) => {
-        method(params, (error, data) => {
-            if (error) return reject({ "err": error });
-            return resolve(data);
-        });
-    });
+function getAwsCallback(resolve, reject){
+    return (error, data) => {
+        if (error) return reject(error);
+        return resolve(data);
+    }
 }
 
-function getAwsUpdateMethod(keyIdParam){
-    return async function(action, settings){
-        const keyId = (action.params[keyIdParam] || "").trim();
-        const userName = (action.params.userName || "").trim();
-        const status = action.params.status;
+function getAwsUpdateParams(params, keyIdParam, paramName){
+    const keyId = (params[keyIdParam] || "").trim();
 
-        if (!keyId || !userName || !status){
-            throw "Not given one of required fields";
-        }
-
-        const params = {
-            AccessKeyId: keyId, 
-            UserName: userName,
-            Status: status
-        };
-        const client = getClient(action, settings);
-        return runAwsMethod(client.updateAccessKey, params);
+    if (!keyId || !params.status){
+        throw "Not given one of required fields";
     }
+
+    let awsParams = getUsernameParam(params);
+    awsParams.Status = params.status;
+    awsParams[paramName] = keyId;
+    return awsParams;
+}
+
+function getUsernameParam(params){
+    const userName = (params.userName || "").trim();
+
+    if (!userName){
+        throw "Not given username";
+    }
+    return { UserName: userName };
 }
 
 module.exports = {
     deleteAccessKey,
+    deleteUser,
     updateAccessKey,
     updateSSHPublicKey,
-    deleteUser,
-    // autocomplete
-    listRegions
+    listAccessKeys
 };
