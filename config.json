@@ -322,7 +322,7 @@
           "name": "isTempRole",
           "viewName": "Is Temporary Role?",
           "type": "boolean",
-          "description": "If set true, method will create specified role name as a temp role. Othwerwise, if will normal role. ",
+          "description": "If set true, method will create specified role name as a temp role. Otherwise, if will normal role. ",
           "placeholder": "true"
         },
         {

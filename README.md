@@ -65,7 +65,7 @@ Creates a new role for your Amazon Web Services account. For more information ab
 1. Auth Access Key ID (Vault) **Optional**
 2. Secret Access Key (Vault) **Optional**
 3. Role Name Prefix (String) **required**  - The name of the role to create. 
-4. Is TempRole (Bool) **required** - If set true, method will create specified role name as a temp role. Othwerwise, if will normal role.
+4. Is TempRole (Bool) **required** - If set true, method will create specified role name as a temp role. Otherwise, if will normal role.
 5. Expiry Day Count (Number) **required *** - Expiry day count for temp role. Count value will add from role created day.
 
 ## Method: Delete Expired Role
